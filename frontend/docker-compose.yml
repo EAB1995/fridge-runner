@@ -1,0 +1,12 @@
+#Below flagged with 'obselete' message
+#version: '3.8'
+services:
+  frontend:
+    build: .  # Refers to the current directory with the Dockerfile
+    ports:
+      - "3000:3000"  # Map port 3000 on the host to port 3000 in the container
+   # volumes:
+   #   - /mnt/c/projects/fridge-runner/fridge-runner/frontend/fridge-runner:/usr/src/app   # dev dir : container dir
+   #   - /usr/src/app/node_modules  # Prevents overwriting node_modules with empty folder
+    environment:
+      - CHOKIDAR_USEPOLLING=true  # Ensures live-reloading works in Docker
