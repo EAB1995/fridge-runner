@@ -15,4 +15,4 @@ cd /c/projects/fridge-runner/fridge-runner/frontend
 docker-compose build --no-cache
 docker-compose up -d
 
-echo "Goodbye."
+echo "Dev Env Running..."
