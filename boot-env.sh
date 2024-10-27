@@ -10,9 +10,14 @@ echo "Starting SAM..."
 cd /c/projects/fridge-runner/fridge-runner/backend/lambda-service/fridge-runner
 sam.cmd local start-api --docker-network host -p 3001 &
 
-echo "Building docker image for frontend..."
-cd /c/projects/fridge-runner/fridge-runner/frontend
-docker-compose build --no-cache
-docker-compose up -d
+#echo "Building docker image for frontend..."
+#cd /c/projects/fridge-runner/fridge-runner/frontend
+# docker-compose build --no-cache
+# docker-compose up -d
+
+#Switched to just running frontend locally 
+cd /c/projects/fridge-runner/fridge-runner/frontend/fridge-runner
+npm start
+
 
 echo "Dev Env Running..."

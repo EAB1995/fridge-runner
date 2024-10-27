@@ -5,8 +5,10 @@ services:
     build: .  # Refers to the current directory with the Dockerfile
     ports:
       - "3000:3000"  # Map port 3000 on the host to port 3000 in the container
+   # Below attempt at mounting for hot deploy before abandonning to serve locally
    # volumes:
-   #   - /mnt/c/projects/fridge-runner/fridge-runner/frontend/fridge-runner:/usr/src/app   # dev dir : container dir
-   #   - /usr/src/app/node_modules  # Prevents overwriting node_modules with empty folder
+   #   - /mnt/c/projects/fridge-runner/fridge-runner/frontend/fridge-runner:/usr/src/app   # dev dir : container dir   
+   #    - /mnt/c/projects/fridge-runner/fridge-runner/frontend/fridge-runner/src:/usr/src/app/src:delegated
+   #    - /usr/src/app/node_modules  # Prevents overwriting node_modules with empty folder
     environment:
       - CHOKIDAR_USEPOLLING=true  # Ensures live-reloading works in Docker
