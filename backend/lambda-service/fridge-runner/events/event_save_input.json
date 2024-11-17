@@ -1,0 +1,16 @@
+{
+    "httpMethod": "POST",
+    "body": "{\"ItemId\": \"2\", \"TestValue\": \"SampleData2\"}",
+    "resource": "/save_input",
+    "path": "/save_input",
+    "isBase64Encoded": false,
+    "headers": {
+      "Content-Type": "application/json",
+      "Origin": "http://localhost:3000"
+    },
+    "requestContext": {
+      "httpMethod": "POST",
+      "resourcePath": "/save_input"
+    }
+  }
+  

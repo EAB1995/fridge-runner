@@ -8,6 +8,7 @@ source /c/projects/fridge-runner/fridge-runner/backend/service-layer-python/Scri
 
 echo "Starting SAM..."
 cd /c/projects/fridge-runner/fridge-runner/backend/lambda-service/fridge-runner
+sam.cmd build
 sam.cmd local start-api --docker-network host -p 3001 &
 
 #echo "Building docker image for frontend..."
@@ -16,8 +17,8 @@ sam.cmd local start-api --docker-network host -p 3001 &
 # docker-compose up -d
 
 #Switched to just running frontend locally 
-cd /c/projects/fridge-runner/fridge-runner/frontend/fridge-runner
-npm start
+# cd /c/projects/fridge-runner/fridge-runner/frontend/fridge-runner
+# npm start
 
 
 echo "Dev Env Running..."

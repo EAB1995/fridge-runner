@@ -10,6 +10,12 @@ Globals:
   Function:
     Timeout: 3
     MemorySize: 128
+  Api:
+    Cors:
+        AllowMethods: "'GET,POST,OPTIONS'"
+        AllowHeaders: "'content-type'"
+        AllowOrigin: "'*'"
+        #AllowCredentials: "'*'" 
 
 Resources:
   HelloWorldFunction:
@@ -30,6 +36,27 @@ Resources:
               AllowOrigin: "'*'"  
               AllowMethods: "'GET,OPTIONS'"  
               AllowHeaders: "'Content-Type'"  
+
+  TestDbAddFunction:
+      Type: AWS::Serverless::Function
+      Properties:
+        CodeUri: save_input/  
+        Handler: save_input.lambda_handler  
+        Runtime: python3.9
+        Architectures:
+          - x86_64
+        Events:
+          AddItem:
+            Type: Api
+            Properties:
+              Path: /save-input
+              ##Method: post  
+              #Path: "/{proxy+}"
+              Method: ANY  
+              Cors:
+                AllowOrigin: "'*'"
+                AllowMethods: "'POST,OPTIONS'"
+                AllowHeaders: "'Content-Type'"              
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

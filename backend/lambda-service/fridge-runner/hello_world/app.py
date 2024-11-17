@@ -4,16 +4,9 @@ import requests
 
 
 def lambda_handler(event, context):
-
-    # try:
-    #     ip = requests.get("http://checkip.amazonaws.com/")
-    # except requests.RequestException as e:
-    #     # Send some context about this error to Lambda Logs
-    #     print(e)
-
-    #     raise e
-
+    print("GET lambda_handler test print")
     if event['httpMethod'] == 'OPTIONS':
+        print("GET lambda_handler test print 2")
         return {
             "statusCode": 200,
             "headers": {
@@ -34,6 +27,7 @@ def lambda_handler(event, context):
             "Access-Control-Allow-Headers": "Content-Type"
         },
         "body": json.dumps({
+            #This will print on the web console in the reponse tab
             "message": "hello world 1",
             # "location": ip.text.replace("\n", "")
         }),
