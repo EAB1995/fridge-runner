@@ -52,6 +52,7 @@ Resources:
               Path: /save-input
               ##Method: post  
               #Path: "/{proxy+}"
+              #Proxy path suggested as alternative from StakOv post 
               Method: ANY  
               Cors:
                 AllowOrigin: "'*'"
