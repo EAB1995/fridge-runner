@@ -4,9 +4,8 @@ import requests
 
 
 def lambda_handler(event, context):
-    print("GET lambda_handler test print")
-    if event['httpMethod'] == 'OPTIONS':
-        print("GET lambda_handler test print 2")
+    print("\nGET lambda_handler app.py fridge-runner > hello_world\n")
+    if event['httpMethod'] == 'OPTIONS':        
         return {
             "statusCode": 200,
             "headers": {

@@ -20,7 +20,9 @@ function App() {
 
     const saveInputLambda = async () => {
         try {
-            const res = await fetch('http://127.0.0.1:3001/save-input', {
+            //Changed line below now that CAM CLI startup is localhost rather than 127.0.0.1
+            //const res = await fetch('http://127.0.0.1:3001/save-input', {
+            const res = await fetch('http://localhost:3001/save-input', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

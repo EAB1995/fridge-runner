@@ -2,13 +2,27 @@ import json
 import boto3
 from botocore.exceptions import ClientError
 
-dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
+#Original
+#dynamodb = boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
+
+#Suggested change after troubleshooting internal docker container connectivity
+dynamodb = boto3.resource('dynamodb', endpoint_url='http://host.docker.internal:8000')
+
 
 TABLE_NAME = 'TestTable'
 
+#Call lambda with curl: 
+# curl -X OPTIONS http://127.0.0.1:3001/save-input -i
+
+#With payload: 
+# curl -X POST http://127.0.0.1:3001/save-input \
+#   -H "Content-Type: application/json" \
+#   -d '{"ItemId": "4", "TestValue": "SampleData4"}' -i
+
 
 def lambda_handler(event, context):
-    print("Save input start")
+    print("\nPOST lambda_handler app.py fridge-runner > save_input\n")
+    print("\nSave input start...\n")
     print("Received event:", json.dumps(event, indent=2))
     headers = {
         "Content-Type": "application/json",
@@ -30,14 +44,14 @@ def lambda_handler(event, context):
         }
     
     if event['httpMethod'] == 'POST':
-        print("POST test")
+        print("\nPOST Request received...\n")
         try:
             body = json.loads(event['body'])
             item_id = body.get("ItemId")
             test_value = body.get("TestValue")
 
-            response_message = f"Received ItemId: {item_id}, TestValue: {test_value}"
-
+            response_msg_received = f"Received ItemId: {item_id}, TestValue: {test_value}"
+            print("\nResponse Message: ", response_msg_received, "\n")
             table = dynamodb.Table(TABLE_NAME)
             table.put_item(
                 Item = {
@@ -46,12 +60,12 @@ def lambda_handler(event, context):
                 }
             )
 
-            response_msg = f"Successfully saved ItemId: {item_id}"
-            print("Response Message: ", response_message)
+            response_msg_svd = f"Successfully saved ItemId: {item_id}"
+            print("Response Message: ", response_msg_svd)
             return {
                 "statusCode": 200,
                 "headers": headers,
-                "body": json.dumps({"message": response_message})
+                "body": json.dumps({"message": response_msg_svd})
             }
         
         except (json.JSONDecodeError, KeyError) as e:
@@ -68,7 +82,9 @@ def lambda_handler(event, context):
                 "headers": headers,
                 "body": json.dumps({"error": "Failed to save"})
             }
-    print("Unsupported method received")
+        
+    print("\nUnsupported method received\n")
+
     return {
         "statusCode": 405,
         "headers": headers,

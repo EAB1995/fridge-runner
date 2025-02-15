@@ -4,7 +4,8 @@ echo "Starting backend image..."
 docker run -d -p 8000:8000 amazon/dynamodb-local
 
 echo "Starting python env..."
-source /c/projects/fridge-runner/fridge-runner/backend/service-layer-python/Scripts/activate
+#No longer starting the virtual env from here
+#source /c/projects/fridge-runner/fridge-runner/backend/service-layer-python/Scripts/activate
 
 echo "Starting SAM on Docker..."
 cd /c/projects/fridge-runner/fridge-runner/backend/lambda-service/fridge-runner
