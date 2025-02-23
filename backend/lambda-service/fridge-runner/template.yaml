@@ -58,12 +58,31 @@ Resources:
               Cors:
                 AllowOrigin: "'*'"
                 AllowMethods: "'POST,OPTIONS'"
-                AllowHeaders: "'Content-Type'"              
+                AllowHeaders: "'Content-Type'"  
+
+  TestDbGetFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: get_test_table/  
+      Handler: get_test_table.lambda_handler  
+      Runtime: python3.9
+      Architectures:
+        - x86_64
+      Events:
+        AddItem:
+          Type: Api
+          Properties:
+            Path: /get-test-table
+            Method: GET  
+            Cors:
+              AllowOrigin: "'*'"
+              AllowMethods: "'POST,OPTIONS'"
+              AllowHeaders: "'Content-Type'"             
 
 Outputs:
-  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
-  # Find out more about other implicit resources you can reference within SAM
-  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+  #Allows the functions to be exposed via API Gateway and referenced by API Gateway URL.
+  #ARN allows cross-service interactions
+  #IAM Role ARN for managing permissions 
   HelloWorldApi:
     Description: "API Gateway endpoint URL for Prod stage for Hello World function"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
@@ -73,3 +92,23 @@ Outputs:
   HelloWorldFunctionIamRole:
     Description: "Implicit IAM Role created for Hello World function"
     Value: !GetAtt HelloWorldFunctionRole.Arn
+
+  TestDbAddApi:
+    Description: "API Gateway endpoint URL for Prod stage for TestDbAdd function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/save-input/"
+  TestDbAddFunction:
+    Description: "TestDbAdd Lambda Function ARN"
+    Value: !GetAtt TestDbAddFunction.Arn
+  TestDbAddFunctionIamRole:
+    Description: "Implicit IAM Role created for TestDbAdd function"
+    Value: !GetAtt TestDbAddFunctionRole.Arn
+
+  TestDbGetApi:
+    Description: "API Gateway endpoint URL for Prod stage for TestDbGet function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/get-test-table/"
+  TestDbGetFunction:
+    Description: "TestDbGet Lambda Function ARN"
+    Value: !GetAtt TestDbGetFunction.Arn
+  TestDbGetFunctionIamRole:
+    Description: "Implicit IAM Role created for TestDbGet function"
+    Value: !GetAtt TestDbGetFunctionRole.Arn

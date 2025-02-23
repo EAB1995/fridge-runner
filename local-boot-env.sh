@@ -11,7 +11,7 @@ cd /c/projects/fridge-runner/fridge-runner/backend/lambda-service/fridge-runner
 sam.cmd build
 #sam.cmd local start-api -p 3001 &
 #Start SAM CLI gateway bound to ALL interfaces
-sam.cmd local start-api -p 3001 --host 0.0.0.0 --debug &
+sam.cmd local start-api -p 3001 --host 0.0.0.0 &
 
 
 printf "\nStarting frontend...\n"

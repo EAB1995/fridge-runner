@@ -13,10 +13,11 @@ cd /c/projects/fridge-runner/fridge-runner/backend/lambda-service/fridge-runner
 
 TEMPLATE_FILE = "template.yaml"
 PORT=3001
+HOST=0.0.0.0
 
 printf "\nBuilding SAM template...\n"
 sam.cmd build
 
 printf "\nRestarting SAM CLI...\n"
-start "" "C:\Program Files\Git\bin\bash.exe" --login -c "cd /c/projects/fridge-runner/fridge-runner/backend/lambda-service/fridge-runner && sam.cmd local start-api -p $PORT; exec bash"
+start "" "C:\Program Files\Git\bin\bash.exe" --login -c "cd /c/projects/fridge-runner/fridge-runner/backend/lambda-service/fridge-runner && sam.cmd local start-api -p $PORT --host $HOST  --debug; exec bash"
 

@@ -5,13 +5,22 @@ import React, { useState } from 'react';
 
 function App() {
 
-    const [response, setResponse] = useState('');
+    const [response, setResponse] = useState({
+        helloWorldResponse: "", 
+        saveInputResponse: "",
+        getTestTableResponse:""
+    });
 
     const helloWorldLambda = async () => {
         try {
             const res = await fetch('http://127.0.0.1:3001/hello');
             const data = await res.json();
-            setResponse(data.message);
+
+            setResponse(prevState => ({
+                ...prevState,
+                helloWorldResponse: data.message
+              }));
+
         } catch(error) {
             console.error('Error triggering Lambda:', error);
             setResponse('Error triggering Lambda');        
@@ -39,7 +48,39 @@ function App() {
 
             const data = await res.json();
             console.log('Response data:', data);
-            setResponse(data.message);
+            
+            setResponse(prevState => ({
+                ...prevState, saveInputResponse: data.message
+            }));
+
+        } catch(error) {
+            console.error('Error triggering Lambda:', error);
+            setResponse('Error triggering Lambda');        
+        }
+    }
+
+    const getTestTableLambda = async () => {
+        try {
+            //Changed line below now that CAM CLI startup is localhost rather than 127.0.0.1
+            //const res = await fetch('http://127.0.0.1:3001/save-input', {
+            const res = await fetch('http://localhost:3001/get-test-table', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            if (!res.ok) {
+                throw new Error(`Server error: ${res.status}`);
+            }
+
+            const data = await res.json();
+            console.log('Response data:', data);
+            
+            setResponse(prevState => ({
+                ...prevState, getTestTableResponse: data.message
+            }));
+
         } catch(error) {
             console.error('Error triggering Lambda:', error);
             setResponse('Error triggering Lambda');        
@@ -55,12 +96,13 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        <InputField />
         <button onClick={helloWorldLambda}>Hello World Test</button>
-        {response && <p>Lambda Response: {response}</p>}
+        {response.helloWorldResponse && <p>Hello World Test: {response.helloWorldResponse}</p>}
         <InputField />
         <button onClick={saveInputLambda}>Save input Test</button>
-        {response && <p>Lambda Response: {response}</p>}
+        {response.saveInputResponse && <p>Save Input Test: {response.saveInputResponse}</p>}
+        <button onClick={getTestTableLambda}>Get Test Table</button>
+        {response.getTestTableResponse && <p>Save Input Test: {response.getTestTableResponse}</p>}
       </header>
     </div>
   );

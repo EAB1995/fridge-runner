@@ -59,6 +59,7 @@ def lambda_handler(event, context):
                     'TestValue': test_value
                 }
             )
+            print("\n\n")
 
             response_msg_svd = f"Successfully saved ItemId: {item_id}"
             print("Response Message: ", response_msg_svd)
