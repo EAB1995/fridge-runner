@@ -20,11 +20,11 @@ npm start
 
 printf "\nBuilding test tables...\n"
 cd /c/projects/fridge-runner/fridge-runner/fridge-runner/backend
-./test-table-create.sh
+./create-test-table.sh
 
 #Not being called currently
 printf "\nGetting test tables...\n"
 cd /c/projects/fridge-runner/fridge-runner/fridge-runner/backend
-./test-table-get.sh
+./get-test-table.sh
 
 printf "\nDev Env Running...\n"
