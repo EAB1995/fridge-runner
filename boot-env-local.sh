@@ -34,4 +34,8 @@ printf "\nBuilding test tables...\n"
 cd /c/projects/fridge-runner/fridge-runner/fridge-runner/backend
 ./test-table-create.sh
 
+printf "\nGetting test tables...\n"
+cd /c/projects/fridge-runner/fridge-runner/fridge-runner/backend
+./test-table-get.sh
+
 printf "\nDev Env Running...\n"
